@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рисунок 2 – Схема обработки MDX</title>
+  <link rel="stylesheet" href="vkr-figures.css">
+</head>
+<body>
+  <figure class="vkr-figure vkr-figure-wide">
+    <div class="vkr-figure-inner">
+      <h3 class="vkr-figure-title">Схема обработки MDX от исходного текста до рендеринга</h3>
+      
+      <div class="vkr-pipeline">
+        <div class="vkr-pipeline-step">
+          <span class="vkr-pipeline-num">1</span>
+          <div class="vkr-pipeline-block">
+            <div class="vkr-pipeline-name">MDX-текст</div>
+            <div class="vkr-pipeline-desc">Markdown + JSX</div>
+          </div>
+        </div>
+        <div class="vkr-pipeline-arrow">→</div>
+        <div class="vkr-pipeline-step">
+          <span class="vkr-pipeline-num">2</span>
+          <div class="vkr-pipeline-block">
+            <div class="vkr-pipeline-name">Парсинг</div>
+            <div class="vkr-pipeline-desc">Micromark, MDXJS</div>
+          </div>
+        </div>
+        <div class="vkr-pipeline-arrow">→</div>
+        <div class="vkr-pipeline-step">
+          <span class="vkr-pipeline-num">3</span>
+          <div class="vkr-pipeline-block">
+            <div class="vkr-pipeline-name">MDAST</div>
+            <div class="vkr-pipeline-desc">дерево разметки</div>
+          </div>
+        </div>
+        <div class="vkr-pipeline-arrow">→</div>
+        <div class="vkr-pipeline-step">
+          <span class="vkr-pipeline-num">4</span>
+          <div class="vkr-pipeline-block">
+            <div class="vkr-pipeline-name">Плагины</div>
+            <div class="vkr-pipeline-desc">трансформации</div>
+          </div>
+        </div>
+        <div class="vkr-pipeline-arrow">→</div>
+        <div class="vkr-pipeline-step vkr-pipeline-step-accent">
+          <span class="vkr-pipeline-num">5</span>
+          <div class="vkr-pipeline-block">
+            <div class="vkr-pipeline-name">Компиляция</div>
+            <div class="vkr-pipeline-desc">импорты, выражения {}</div>
+          </div>
+        </div>
+        <div class="vkr-pipeline-arrow">→</div>
+        <div class="vkr-pipeline-step">
+          <span class="vkr-pipeline-num">6</span>
+          <div class="vkr-pipeline-block">
+            <div class="vkr-pipeline-name">Рендеринг</div>
+            <div class="vkr-pipeline-desc">React / Vue / Svelte</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <figcaption class="vkr-figcaption">Рисунок 2 – Схема обработки MDX от исходного текста до рендеринга в браузере</figcaption>
+  </figure>
+</body>
+</html>

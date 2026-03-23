@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рисунок 3 – Схема агрегации метаданных</title>
+  <link rel="stylesheet" href="vkr-figures.css">
+</head>
+<body>
+  <figure class="vkr-figure">
+    <div class="vkr-figure-inner">
+      <h3 class="vkr-figure-title">Поток данных при агрегации метаданных и формировании карточки</h3>
+      
+      <div class="vkr-flow-diagram">
+        <div class="vkr-flow-row-main">
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">Пользователь</div>
+            <div class="vkr-flow-box-content">Вставка URL</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">Редактор</div>
+            <div class="vkr-flow-box-content">Запрос метаданных</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box vkr-flow-box-accent">
+            <div class="vkr-flow-box-title">Сервер / API</div>
+            <div class="vkr-flow-box-content">HTTP → парсинг HTML</div>
+          </div>
+        </div>
+        <div class="vkr-flow-row-secondary">
+          <div class="vkr-flow-box-small">
+            <span>Open Graph</span>
+          </div>
+          <div class="vkr-flow-box-small">
+            <span>JSON-LD</span>
+          </div>
+          <div class="vkr-flow-box-small">
+            <span>Microdata</span>
+          </div>
+          <div class="vkr-flow-box-small">
+            <span>meta-теги</span>
+          </div>
+        </div>
+        <div class="vkr-flow-row-main">
+          <div class="vkr-flow-box vkr-flow-box-accent">
+            <div class="vkr-flow-box-title">Агрегатор</div>
+            <div class="vkr-flow-box-content">Нормализация, кэш</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">Карточка</div>
+            <div class="vkr-flow-box-content">title, description, image</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">Контент</div>
+            <div class="vkr-flow-box-content">Компонент в MDX</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vkr-flow-note">
+        <span class="vkr-flow-note-label">Источники метаданных:</span> Приоритет — OG → JSON-LD → microdata → HTML meta. Кэширование снижает нагрузку на целевые сайты.
+      </div>
+    </div>
+    <figcaption class="vkr-figcaption">Рисунок 3 – Поток данных при агрегации метаданных и формировании карточки внешнего источника</figcaption>
+  </figure>
+</body>
+</html>

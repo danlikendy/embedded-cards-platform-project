@@ -1,0 +1,649 @@
+/* Единый стиль для рисунков ВКР — приглушённая палитра, профессиональный вид */
+
+:root {
+  --vkr-bg: #f8f9fa;
+  --vkr-surface: #ffffff;
+  --vkr-border: #dee2e6;
+  --vkr-text: #2d3748;
+  --vkr-text-muted: #6b7280;
+  --vkr-accent: #5a6c7d;
+  --vkr-accent-light: #8b9caa;
+  --vkr-grid: #e9ecef;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
+  background: var(--vkr-surface);
+  color: var(--vkr-text);
+  padding: 2rem;
+  line-height: 1.5;
+}
+
+.vkr-figure {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.vkr-figure-wide {
+  max-width: 960px;
+}
+
+.vkr-figure-inner {
+  background: var(--vkr-bg);
+  border: 1px solid var(--vkr-border);
+  border-radius: 6px;
+  padding: 1.75rem;
+}
+
+.vkr-figure-inner-spacious {
+  padding: 2rem 2.25rem;
+}
+
+.vkr-figcaption {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--vkr-text-muted);
+  text-align: center;
+}
+
+.vkr-figure-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--vkr-text);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Матрица / таблица */
+.vkr-matrix-wrap { margin-bottom: 1rem; overflow-x: auto; }
+
+.vkr-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.vkr-matrix-table th,
+.vkr-matrix-table td {
+  border: 1px solid var(--vkr-border);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.vkr-matrix-table th {
+  background: var(--vkr-surface);
+  font-weight: 600;
+  color: var(--vkr-text);
+}
+
+.vkr-matrix-table td {
+  background: var(--vkr-surface);
+}
+
+.vkr-matrix-table small {
+  color: var(--vkr-text-muted);
+  font-size: 0.7rem;
+}
+
+.vkr-matrix-table td strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* Устаревшие классы для совместимости */
+.vkr-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto 1fr 1fr;
+  gap: 0;
+  margin-bottom: 1.25rem;
+}
+
+.vkr-matrix-header {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vkr-text-muted);
+  padding: 0.5rem;
+  border: 1px solid var(--vkr-border);
+  background: var(--vkr-surface);
+}
+
+.vkr-matrix-label-col,
+.vkr-matrix-label-row {
+  font-size: 0.75rem;
+  padding: 0.6rem;
+  border: 1px solid var(--vkr-border);
+  background: var(--vkr-surface);
+  color: var(--vkr-text);
+}
+
+.vkr-matrix-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.vkr-matrix-item {
+  padding: 0.9rem;
+  border: 1px solid var(--vkr-border);
+  background: var(--vkr-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vkr-matrix-item-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vkr-text);
+}
+
+.vkr-matrix-item-desc {
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+}
+
+.vkr-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--vkr-border);
+}
+
+.vkr-legend-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.vkr-legend-label {
+  color: var(--vkr-text-muted);
+  min-width: 6rem;
+}
+
+.vkr-legend-tag {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: var(--vkr-surface);
+  border: 1px solid var(--vkr-border);
+  color: var(--vkr-text);
+  font-size: 0.7rem;
+}
+
+.vkr-legend-tag-accent {
+  border-color: var(--vkr-accent);
+  color: var(--vkr-accent);
+}
+
+/* Блок-схемы */
+.vkr-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vkr-flow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.vkr-flow-node {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 4px;
+  background: var(--vkr-surface);
+  font-size: 0.8rem;
+  min-width: 120px;
+  text-align: center;
+}
+
+.vkr-flow-node-accent {
+  border-color: var(--vkr-accent);
+  background: rgba(90, 108, 125, 0.08);
+}
+
+.vkr-flow-arrow {
+  color: var(--vkr-text-muted);
+  font-size: 0.9rem;
+}
+
+.vkr-flow-label {
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+}
+
+/* Диаграммы */
+.vkr-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem 0 1rem;
+}
+
+.vkr-bar-chart-scale {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  gap: 1.25rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--vkr-border);
+  font-size: 0.65rem;
+  color: var(--vkr-text-muted);
+}
+
+.vkr-bar-scale-values {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vkr-bar-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.vkr-bar-label {
+  font-size: 0.8rem;
+  color: var(--vkr-text);
+}
+
+.vkr-bar-track {
+  height: 24px;
+  background: var(--vkr-grid);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.vkr-bar-fill {
+  height: 100%;
+  background: var(--vkr-accent);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.vkr-bar-value {
+  font-size: 0.8rem;
+  color: var(--vkr-text);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.vkr-bar-note {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--vkr-surface);
+  border: 1px solid var(--vkr-border);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: var(--vkr-text-muted);
+  line-height: 1.6;
+}
+
+.vkr-bar-note strong {
+  color: var(--vkr-text);
+}
+
+/* Блок-схема (вертикальная) */
+.vkr-flowchart {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1rem;
+}
+
+.vkr-flow-step {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vkr-flow-node {
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 4px;
+  background: var(--vkr-surface);
+  font-size: 0.82rem;
+  flex: 1;
+  max-width: 320px;
+}
+
+.vkr-flow-node-accent {
+  border-color: var(--vkr-accent);
+  background: rgba(90, 108, 125, 0.06);
+}
+
+.vkr-flow-connector {
+  color: var(--vkr-text-muted);
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.vkr-flow-note {
+  padding: 0.75rem 1rem;
+  background: var(--vkr-surface);
+  border: 1px solid var(--vkr-border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--vkr-text-muted);
+}
+
+.vkr-flow-note code {
+  background: var(--vkr-grid);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  font-size: 0.7rem;
+}
+
+.vkr-flow-note-label {
+  font-weight: 600;
+  color: var(--vkr-text);
+  margin-right: 0.35rem;
+}
+
+/* Горизонтальная схема потока */
+.vkr-flow-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.vkr-flow-row-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vkr-flow-row-secondary {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.vkr-flow-box {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 4px;
+  background: var(--vkr-surface);
+  font-size: 0.8rem;
+  min-width: 100px;
+  text-align: center;
+}
+
+.vkr-flow-box-accent {
+  border-color: var(--vkr-accent);
+  background: rgba(90, 108, 125, 0.06);
+}
+
+.vkr-flow-box-title {
+  font-weight: 600;
+  color: var(--vkr-text);
+  margin-bottom: 0.2rem;
+}
+
+.vkr-flow-box-content {
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+}
+
+.vkr-flow-box-small {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 4px;
+  background: var(--vkr-surface);
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+}
+
+.vkr-flow-arrow-h {
+  color: var(--vkr-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Горизонтальный пайплайн (Рисунок 2) */
+.vkr-pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+
+.vkr-pipeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vkr-pipeline-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--vkr-border);
+  color: var(--vkr-text);
+  font-size: 0.65rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vkr-pipeline-step-accent .vkr-pipeline-num {
+  background: var(--vkr-accent);
+  color: var(--vkr-surface);
+}
+
+.vkr-pipeline-block {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 6px;
+  background: var(--vkr-surface);
+  text-align: center;
+  min-width: 90px;
+}
+
+.vkr-pipeline-step-accent .vkr-pipeline-block {
+  border-color: var(--vkr-accent);
+  background: rgba(90, 108, 125, 0.08);
+}
+
+.vkr-pipeline-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vkr-text);
+}
+
+.vkr-pipeline-desc {
+  font-size: 0.65rem;
+  color: var(--vkr-text-muted);
+  margin-top: 0.15rem;
+}
+
+.vkr-pipeline-arrow {
+  color: var(--vkr-accent-light);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Квадрантная диаграмма (Рисунок 5) */
+.vkr-quadrant-matrix {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.vkr-quadrant-corner {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 4rem;
+}
+
+.vkr-quadrant-x-left {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+  text-align: center;
+}
+
+.vkr-quadrant-x-right {
+  grid-column: 3;
+  grid-row: 1;
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+  text-align: center;
+}
+
+.vkr-quadrant-y-top {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+  text-align: right;
+  padding-right: 0.75rem;
+  min-width: 5rem;
+}
+
+.vkr-quadrant-y-bottom {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+  text-align: right;
+  padding-right: 0.75rem;
+}
+
+.vkr-quadrant-matrix .vkr-quadrant-cell:nth-of-type(1) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.vkr-quadrant-matrix .vkr-quadrant-cell:nth-of-type(2) {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.vkr-quadrant-matrix .vkr-quadrant-cell:nth-of-type(3) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.vkr-quadrant-matrix .vkr-quadrant-cell:nth-of-type(4) {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.vkr-quadrant-cell {
+  padding: 1rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 6px;
+  background: var(--vkr-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.vkr-quadrant-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vkr-text);
+}
+
+.vkr-quadrant-apps {
+  font-size: 0.72rem;
+  color: var(--vkr-text-muted);
+}
+
+/* Каналы метаданных (Рисунок 6) */
+.vkr-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.vkr-channel {
+  padding: 1rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 6px;
+  background: var(--vkr-surface);
+}
+
+.vkr-channel-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vkr-text);
+  margin-bottom: 0.6rem;
+}
+
+.vkr-channel-flow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+  color: var(--vkr-text);
+}
+
+.vkr-channel-arrow {
+  color: var(--vkr-accent-light);
+  font-size: 0.9rem;
+}
+
+.vkr-channel-note {
+  font-size: 0.7rem;
+  color: var(--vkr-text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Карта проблематики (Рисунок 7) */
+.vkr-problem-map {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.vkr-problem-card {
+  padding: 1rem;
+  border: 1px solid var(--vkr-border);
+  border-radius: 6px;
+  background: var(--vkr-surface);
+}
+
+.vkr-problem-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vkr-text);
+  margin-bottom: 0.5rem;
+}
+
+.vkr-problem-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.78rem;
+  color: var(--vkr-text-muted);
+  line-height: 1.6;
+}
+

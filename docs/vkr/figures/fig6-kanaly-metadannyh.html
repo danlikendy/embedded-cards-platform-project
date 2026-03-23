@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рисунок 6 – Каналы получения метаданных</title>
+  <link rel="stylesheet" href="vkr-figures.css">
+</head>
+<body>
+  <figure class="vkr-figure">
+    <div class="vkr-figure-inner">
+      <h3 class="vkr-figure-title">Сравнительная схема каналов получения метаданных для карточек ссылок</h3>
+      
+      <div class="vkr-channels">
+        <div class="vkr-channel">
+          <div class="vkr-channel-header">Нативная платформа</div>
+          <div class="vkr-channel-flow">
+            <span>URL</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>Сервер платформы</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>OG / meta</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>Карточка</span>
+          </div>
+          <div class="vkr-channel-note">Notion, Craft</div>
+        </div>
+        <div class="vkr-channel">
+          <div class="vkr-channel-header">Плагин</div>
+          <div class="vkr-channel-flow">
+            <span>URL</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>Клиент / Прокси</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>Метаданные</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>Карточка</span>
+          </div>
+          <div class="vkr-channel-note">Obsidian, Logseq (CORS-риски)</div>
+        </div>
+        <div class="vkr-channel">
+          <div class="vkr-channel-header">Сторонний API</div>
+          <div class="vkr-channel-flow">
+            <span>URL</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>LinkMetadata, Microlink</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>JSON</span>
+            <span class="vkr-channel-arrow">→</span>
+            <span>Карточка</span>
+          </div>
+          <div class="vkr-channel-note">Зависимость от провайдера</div>
+        </div>
+      </div>
+    </div>
+    <figcaption class="vkr-figcaption">Рисунок 6 – Сравнение каналов получения метаданных: нативная платформа, плагин, сторонний API</figcaption>
+  </figure>
+</body>
+</html>
