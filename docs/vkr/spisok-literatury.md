@@ -27,3 +27,5 @@
 13. Personal Knowledge Management Software Market Research Report 2033 [Электронный ресурс] // DataIntelo. — URL: https://dataintelo.com/report/personal-knowledge-management-software-market (дата обращения: 15.01.2026).
 
 14. Knowledge Management Software Market — Competitive Analysis and Trends [Электронный ресурс] // Introspective Market Research. — URL: https://introspectivemarketresearch.com/reports/knowledge-management-software-market/ (дата обращения: 15.01.2026).
+
+15. Finstad K. The Usability Metric for User Experience // Interacting with Computers. — 2010. — Vol. 22, No. 5. — P. 323–327. — DOI: 10.1016/j.intcom.2010.04.004.

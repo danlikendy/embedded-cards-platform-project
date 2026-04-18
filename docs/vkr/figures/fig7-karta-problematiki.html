@@ -3,54 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Рисунок 7 – Карта проблематики и ограничений</title>
+  <title>Рисунок 10 – Систематизация проблематики существующих решений</title>
   <link rel="stylesheet" href="vkr-figures.css">
 </head>
 <body>
   <figure class="vkr-figure">
     <div class="vkr-figure-inner vkr-figure-inner-spacious">
-      <h3 class="vkr-figure-title">Карта проблематики и ограничений существующих решений</h3>
-      
+
       <div class="vkr-problem-map">
         <div class="vkr-problem-card">
           <div class="vkr-problem-title">Формат контента</div>
           <ul class="vkr-problem-list">
-            <li>Нет поддержки MDX</li>
-            <li>Проприетарные блоковые модели</li>
+            <li>Нет поддержки MDX в массовых PKM</li>
+            <li>Проприетарные блоковые модели (lock-in)</li>
             <li>Markdown без JSX-расширений</li>
           </ul>
         </div>
         <div class="vkr-problem-card">
-          <div class="vkr-problem-title">Карточки ссылок</div>
+          <div class="vkr-problem-title">Карточки внешних источников</div>
           <ul class="vkr-problem-list">
-            <li>Фиксированные шаблоны, без кастомизации</li>
+            <li>Фиксированные шаблоны без кастомизации</li>
             <li>Плагины с переменным качеством</li>
-            <li>Нет MDX-компонентов</li>
+            <li>Карточка не является MDX-компонентом</li>
           </ul>
         </div>
         <div class="vkr-problem-card">
-          <div class="vkr-problem-title">Автодополнение</div>
+          <div class="vkr-problem-title">Автодополнение URL → карточка</div>
           <ul class="vkr-problem-list">
-            <li>Только синтаксис / теги</li>
-            <li>Нет автодополнения URL → карточка</li>
-            <li>Фрагментарная интеграция</li>
+            <li>Только синтаксис / теги / внутренние ссылки</li>
+            <li>Нет debounce-агрегации при вводе URL</li>
+            <li>Фрагментарная интеграция с API метаданных</li>
           </ul>
         </div>
         <div class="vkr-problem-card">
-          <div class="vkr-problem-title">Архитектура</div>
+          <div class="vkr-problem-title">Архитектура и независимость</div>
           <ul class="vkr-problem-list">
-            <li>Зависимость от вендора (облако)</li>
-            <li>Слабая портативность карточек</li>
-            <li>Нет единой интеграции</li>
+            <li>Зависимость от вендора (облачное хранение)</li>
+            <li>Слабая портативность карточек при экспорте</li>
+            <li>Нет единого контура MDX + карточки + агрегация</li>
           </ul>
         </div>
       </div>
 
-      <div class="vkr-flow-note" style="margin-top: 1rem;">
-        <span class="vkr-flow-note-label">Вывод:</span> Ни один продукт не объединяет MDX, карточки, автодополнение и портативную веб-архитектуру в едином решении.
+      <div class="vkr-note" style="margin-top:1rem">
+        <span class="vkr-note-label">Вывод:</span> ни один из рассмотренных продуктов не объединяет MDX как формат хранения, JSX-карточки внешних источников, серверную агрегацию под контролем автора и переносимую архитектуру в едином решении. Данный разрыв обосновывает необходимость разработки MVP (требования T-01–T-03, табл. 9).
       </div>
     </div>
-    <figcaption class="vkr-figcaption">Рисунок 7 – Систематизация проблематики и ограничений по четырём областям</figcaption>
+    <figcaption class="vkr-figcaption">
+      Рисунок 10 – Систематизация проблематики и ограничений существующих решений по четырём функциональным областям
+      <span class="vkr-figcaption-source">Источник: составлено автором по итогам сравнительного анализа платформ PKM и инструментов агрегации метаданных (п. 2.1–2.3, табл. 4, 7)</span>
+    </figcaption>
   </figure>
 </body>
 </html>

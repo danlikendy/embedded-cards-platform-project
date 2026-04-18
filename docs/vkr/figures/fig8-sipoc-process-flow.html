@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рисунок 7 – Поток SIPOC: карточка внешнего источника</title>
+  <link rel="stylesheet" href="vkr-figures.css">
+</head>
+<body>
+  <figure class="vkr-figure vkr-figure-wide">
+    <div class="vkr-figure-inner vkr-figure-inner-spacious">
+
+      <div class="vkr-flow-diagram">
+        <div class="vkr-flow-row-main">
+          <div class="vkr-flow-box vkr-flow-box-accent">
+            <div class="vkr-flow-box-title">S — Поставщики</div>
+            <div class="vkr-flow-box-content">Внешний сайт; DNS/HTTP-инфраструктура; политика User-Agent</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">I — Входы</div>
+            <div class="vkr-flow-box-content">URL; лимиты частоты; контекст курсора в MDX-редакторе</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box vkr-flow-box-accent">
+            <div class="vkr-flow-box-title">P — Процесс</div>
+            <div class="vkr-flow-box-content">Нормализация URL → HTTP GET → парсинг OG/JSON-LD → DTO → кэш; вызов API из редактора → вставка JSX → сохранение MDX</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">O — Выходы</div>
+            <div class="vkr-flow-box-content">JSON метаданных или признак отказа с minFields; MDX-файл с JSX-компонентом карточки</div>
+          </div>
+          <div class="vkr-flow-arrow-h">→</div>
+          <div class="vkr-flow-box">
+            <div class="vkr-flow-box-title">C — Потребители</div>
+            <div class="vkr-flow-box-content">Автор заметки; рендер страницы; система контроля версий</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vkr-note">
+        <span class="vkr-note-label">Разделение ответственности:</span> этап P объединяет два параллельных потока — «агент агрегации» (HTTP GET → парсинг → кэш) и «редактор» (вызов API → вставка JSX → сохранение); они сходятся в одном выходе: MDX с заполненной карточкой. Граница ответственности агента — контракт JSON-ответа; граница редактора — запись файла без повреждения при сбое сети.
+      </div>
+    </div>
+    <figcaption class="vkr-figcaption">
+      Рисунок 7 – Линейный поток процесса формирования карточки внешнего источника по модели SIPOC
+      <span class="vkr-figcaption-source">Источник: составлено автором; модель SIPOC адаптирована к архитектуре проектируемого MVP (табл. 8, п. 2.2); методология SIPOC — стандарт Six Sigma / DMAIC</span>
+    </figcaption>
+  </figure>
+</body>
+</html>

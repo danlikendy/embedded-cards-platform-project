@@ -3,68 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Рисунок 3 – Схема агрегации метаданных</title>
+  <title>Рисунок 3 – Поток данных при агрегации метаданных</title>
   <link rel="stylesheet" href="vkr-figures.css">
 </head>
 <body>
-  <figure class="vkr-figure">
-    <div class="vkr-figure-inner">
-      <h3 class="vkr-figure-title">Поток данных при агрегации метаданных и формировании карточки</h3>
-      
+  <figure class="vkr-figure vkr-figure-wide">
+    <div class="vkr-figure-inner vkr-figure-inner-spacious">
+
       <div class="vkr-flow-diagram">
         <div class="vkr-flow-row-main">
           <div class="vkr-flow-box">
             <div class="vkr-flow-box-title">Пользователь</div>
-            <div class="vkr-flow-box-content">Вставка URL</div>
+            <div class="vkr-flow-box-content">Вставка URL в редактор</div>
           </div>
           <div class="vkr-flow-arrow-h">→</div>
           <div class="vkr-flow-box">
-            <div class="vkr-flow-box-title">Редактор</div>
-            <div class="vkr-flow-box-content">Запрос метаданных</div>
+            <div class="vkr-flow-box-title">MDX-редактор</div>
+            <div class="vkr-flow-box-content">Debounce → запрос к API</div>
           </div>
           <div class="vkr-flow-arrow-h">→</div>
           <div class="vkr-flow-box vkr-flow-box-accent">
-            <div class="vkr-flow-box-title">Сервер / API</div>
-            <div class="vkr-flow-box-content">HTTP → парсинг HTML</div>
+            <div class="vkr-flow-box-title">Сервер / API агрегации</div>
+            <div class="vkr-flow-box-content">HTTP GET → парсинг HTML</div>
           </div>
         </div>
+
         <div class="vkr-flow-row-secondary">
-          <div class="vkr-flow-box-small">
-            <span>Open Graph</span>
-          </div>
-          <div class="vkr-flow-box-small">
-            <span>JSON-LD</span>
-          </div>
-          <div class="vkr-flow-box-small">
-            <span>Microdata</span>
-          </div>
-          <div class="vkr-flow-box-small">
-            <span>meta-теги</span>
-          </div>
+          <div class="vkr-flow-box-small">Open Graph</div>
+          <div class="vkr-flow-box-small">JSON-LD</div>
+          <div class="vkr-flow-box-small">Microdata</div>
+          <div class="vkr-flow-box-small">HTML meta</div>
         </div>
+
         <div class="vkr-flow-row-main">
           <div class="vkr-flow-box vkr-flow-box-accent">
-            <div class="vkr-flow-box-title">Агрегатор</div>
-            <div class="vkr-flow-box-content">Нормализация, кэш</div>
+            <div class="vkr-flow-box-title">Нормализация + кэш</div>
+            <div class="vkr-flow-box-content">Приоритет полей: OG → JSON-LD → meta; TTL-кэш по URL</div>
           </div>
           <div class="vkr-flow-arrow-h">→</div>
           <div class="vkr-flow-box">
-            <div class="vkr-flow-box-title">Карточка</div>
-            <div class="vkr-flow-box-content">title, description, image</div>
+            <div class="vkr-flow-box-title">DTO метаданных</div>
+            <div class="vkr-flow-box-content">title · description · image · canonical URL</div>
           </div>
           <div class="vkr-flow-arrow-h">→</div>
           <div class="vkr-flow-box">
-            <div class="vkr-flow-box-title">Контент</div>
-            <div class="vkr-flow-box-content">Компонент в MDX</div>
+            <div class="vkr-flow-box-title">JSX-карточка в MDX</div>
+            <div class="vkr-flow-box-content">компонент с заполненными пропсами</div>
           </div>
         </div>
       </div>
 
-      <div class="vkr-flow-note">
-        <span class="vkr-flow-note-label">Источники метаданных:</span> Приоритет — OG → JSON-LD → microdata → HTML meta. Кэширование снижает нагрузку на целевые сайты.
+      <div class="vkr-note">
+        <span class="vkr-note-label">Приоритет источников:</span> OG → JSON-LD → Microdata → HTML meta. При сбое сети — graceful degradation: URL и домен сохраняются, файл не повреждается.
       </div>
     </div>
-    <figcaption class="vkr-figcaption">Рисунок 3 – Поток данных при агрегации метаданных и формировании карточки внешнего источника</figcaption>
+    <figcaption class="vkr-figcaption">
+      Рисунок 3 – Поток данных при серверной агрегации метаданных и формировании JSX-карточки внешнего источника
+      <span class="vkr-figcaption-source">Источник: составлено автором; протоколы Open Graph, JSON-LD — по спецификациям ogp.me и schema.org; архитектура — авторская схема целевого MVP</span>
+    </figcaption>
   </figure>
 </body>
 </html>

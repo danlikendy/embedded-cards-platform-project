@@ -16,6 +16,8 @@
 
 **MDX** — Markdown + JSX (гибридный формат разметки, объединяющий Markdown и JSX)
 
+**NFR** — Non-Functional Requirements (нефункциональные требования)
+
 **MDAST** — Markdown Abstract Syntax Tree (абстрактное синтаксическое дерево Markdown)
 
 **OG** — Open Graph (открытый граф; протокол метаданных для социальных сетей)
@@ -34,6 +36,10 @@
 
 **SUS** — System Usability Scale (шкала оценки удобства использования системы)
 
+**TCO** — Total Cost of Ownership (совокупная стоимость владения)
+
 **UMUX-Lite** — Usability Metric for User Experience Lite (облегчённая метрика удобства пользовательского опыта)
 
 **WYSIWYG** — What You See Is What You Get (визуальное редактирование «как видишь, так и получаешь»)
+
+**WYSIWYM** — What You See Is What You Mean (редактирование с явным указанием семантики разметки без визуального рендеринга)
