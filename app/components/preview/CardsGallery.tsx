@@ -7,9 +7,9 @@ import { useMetadata } from '@/hooks/useMetadata'
 const CARD_RE = /<LinkCard\s+url="([^"]+)"/g
 
 function GalleryCard({ url }: { url: string }) {
-  const { data, status } = useMetadata(url)
-  if (status === 'loading' || status === 'idle') return <LinkCardSkeleton />
-  if (!data) return (
+  const state = useMetadata(url)
+  if (state.status === 'loading' || state.status === 'idle') return <LinkCardSkeleton />
+  if (state.status !== 'success') return (
     <a
       href={url}
       target="_blank"
@@ -23,7 +23,7 @@ function GalleryCard({ url }: { url: string }) {
       <span className="truncate">{url}</span>
     </a>
   )
-  return <LinkCard metadata={data} />
+  return <LinkCard metadata={state.data} />
 }
 
 interface CardsGalleryProps {
