@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рисунок 12 – Схема взаимодействия компонентов редактора</title>
+  <link rel="stylesheet" href="vkr-figures.css">
+  <style>
+    .seq { display:flex; flex-direction:column; gap:0; }
+
+    /* Participants */
+    .seq-participants {
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:6px;
+      margin-bottom:12px;
+    }
+    .seq-part {
+      border:1.5px solid #d1d5db;
+      border-radius:7px;
+      padding:7px 6px;
+      text-align:center;
+      background:#fff;
+    }
+    .seq-part-name { font-size:9px; font-weight:700; color:#111827; }
+    .seq-part-role { font-size:7.5px; color:#9ca3af; margin-top:1px; }
+
+    .sp-user   { background:#f9fafb; border-color:#374151; }
+    .sp-editor { background:#eff6ff; border-color:#3b82f6; }
+    .sp-hook   { background:#fefce8; border-color:#d97706; }
+    .sp-api    { background:#f0fdf4; border-color:#16a34a; }
+    .sp-card   { background:#fdf4ff; border-color:#a855f7; }
+
+    /* Steps */
+    .seq-steps { display:flex; flex-direction:column; gap:0; }
+    .seq-step {
+      display:flex; align-items:stretch; min-height:28px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .seq-step:last-child { border-bottom:none; }
+
+    .seq-step-num {
+      width:20px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:8px; font-weight:700; color:#9ca3af;
+    }
+    .seq-step-arrow {
+      flex:1; display:flex; align-items:center;
+      padding:4px 6px; gap:6px;
+    }
+    .seq-from { font-size:8.5px; font-weight:600; color:#374151; white-space:nowrap; }
+    .seq-arr {
+      flex:1; height:1px; background:#d1d5db; position:relative;
+      display:flex; align-items:center;
+    }
+    .seq-arr::after {
+      content:'▶'; position:absolute; right:-1px;
+      font-size:7px; color:#9ca3af;
+    }
+    .seq-to { font-size:8.5px; font-weight:600; color:#374151; white-space:nowrap; }
+    .seq-msg {
+      width:200px; flex-shrink:0;
+      font-size:8px; color:#4b5563; padding:4px 8px;
+      display:flex; align-items:center;
+    }
+    .seq-note {
+      background:#fafafa; padding:5px 8px;
+      font-size:8px; color:#6b7280; font-style:italic;
+      border-left:2px solid #e5e7eb;
+    }
+
+    /* Path labels */
+    .seq-path-label {
+      background:#111827; color:white;
+      font-size:7.5px; font-weight:700; letter-spacing:0.5px;
+      padding:4px 10px; border-radius:4px;
+      margin: 8px 0 4px;
+      display:inline-block;
+    }
+  </style>
+</head>
+<body>
+  <figure class="vkr-figure vkr-figure-wide">
+    <div class="vkr-figure-inner vkr-figure-inner-spacious">
+      <div class="seq">
+
+        <!-- Participants -->
+        <div class="seq-participants">
+          <div class="seq-part sp-user">
+            <div class="seq-part-name">Пользователь</div>
+            <div class="seq-part-role">Actor</div>
+          </div>
+          <div class="seq-part sp-editor">
+            <div class="seq-part-name">MDXEditor</div>
+            <div class="seq-part-role">CodeMirror 6</div>
+          </div>
+          <div class="seq-part sp-hook">
+            <div class="seq-part-name">useDebounce / useMetadata</div>
+            <div class="seq-part-role">React hooks</div>
+          </div>
+          <div class="seq-part sp-api">
+            <div class="seq-part-name">API /metadata</div>
+            <div class="seq-part-role">Next.js Route</div>
+          </div>
+          <div class="seq-part sp-card">
+            <div class="seq-part-name">UrlSuggestion / LinkCard</div>
+            <div class="seq-part-role">UI Components</div>
+          </div>
+        </div>
+
+        <!-- Path A: autocomplete -->
+        <span class="seq-path-label">Путь A — Автодополнение (набор или вставка URL в редактор)</span>
+        <div class="seq-steps">
+          <div class="seq-step">
+            <div class="seq-step-num">1</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">Пользователь</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">MDXEditor</span>
+            </div>
+            <div class="seq-msg">Вводит или вставляет URL в текст</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">2</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">MDXEditor</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">useDebounce</span>
+            </div>
+            <div class="seq-msg">onUrlsDetected([url]) — задержка 400 мс</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">3</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">useMetadata</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">API /metadata</span>
+            </div>
+            <div class="seq-msg">GET /api/metadata?url=... (если не в кэше хука)</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">4</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">API /metadata</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">useMetadata</span>
+            </div>
+            <div class="seq-msg">{ data: LinkMetadata, cached: bool }</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">5</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">useMetadata</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">UrlSuggestion</span>
+            </div>
+            <div class="seq-msg">Отображает превью карточки; кнопки «Вставить» / «Отклонить»</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">6</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">Пользователь</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">MDXEditor</span>
+            </div>
+            <div class="seq-msg">handleInsertCard → url заменяется на &lt;LinkCard url="..." /&gt;</div>
+          </div>
+        </div>
+
+        <!-- Path B: quick bar -->
+        <span class="seq-path-label">Путь B — Quick URL bar (прямая вставка из сайдбара)</span>
+        <div class="seq-steps">
+          <div class="seq-step">
+            <div class="seq-step-num">1</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">Пользователь</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">QuickUrlBar</span>
+            </div>
+            <div class="seq-msg">Вставляет URL → Enter</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">2</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">QuickUrlBar</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">MDXEditor</span>
+            </div>
+            <div class="seq-msg">handleAddUrl → вставка тега в конец документа</div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-step-num">3</div>
+            <div class="seq-step-arrow">
+              <span class="seq-from">MDXPreview</span>
+              <div class="seq-arr"></div>
+              <span class="seq-to">LinkCard</span>
+            </div>
+            <div class="seq-msg">Парсит &lt;LinkCard url="..." /&gt; → вызывает useMetadata → рендерит карточку</div>
+          </div>
+        </div>
+
+        <div class="seq-note" style="margin-top:8px;">
+          Оба пути завершаются единым MDX-тегом &lt;LinkCard url="..." /&gt; в документе — хранение не зависит от способа вставки.
+        </div>
+
+      </div>
+    </div>
+    <figcaption class="vkr-figcaption">
+      Рисунок 12 – Схема взаимодействия компонентов редактора при вставке карточки
+      <span class="vkr-figcaption-source">Источник: составлено автором на основе архитектуры разработанного MVP</span>
+    </figcaption>
+  </figure>
+</body>
+</html>

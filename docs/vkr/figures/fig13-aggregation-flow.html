@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рисунок 13 – Схема обработки запроса агрегации метаданных</title>
+  <link rel="stylesheet" href="vkr-figures.css">
+  <style>
+    .flow { display:flex; flex-direction:column; align-items:center; gap:0; width:100%; }
+
+    /* ── Base blocks ── */
+    .fb {
+      border-radius:8px; border:1.5px solid;
+      padding:9px 16px; width:420px; max-width:100%;
+      display:flex; flex-direction:column; gap:3px;
+      text-align:center;
+    }
+    .fb-name { font-size:10px; font-weight:700; color:#111827; }
+    .fb-sub  { font-size:8px;  color:#6b7280; line-height:1.4; }
+
+    /* colour variants */
+    .fb-client { background:#eff6ff; border-color:#3b82f6; }
+    .fb-route  { background:#fefce8; border-color:#d97706; }
+    .fb-cache  { background:#f0fdf4; border-color:#16a34a; }
+    .fb-fetch  { background:#fff7ed; border-color:#ea580c; }
+    .fb-ext    { background:#f3f4f6; border-color:#9ca3af; }
+    .fb-parse  { background:#fdf4ff; border-color:#a855f7; }
+    .fb-ok     { background:#f0fdf4; border-color:#16a34a; }
+    .fb-err    { background:#fef2f2; border-color:#dc2626; }
+
+    /* ── Arrow ── */
+    .arr {
+      display:flex; flex-direction:column; align-items:center;
+      gap:0; margin:0; flex-shrink:0;
+    }
+    .arr-line { width:2px; height:18px; background:#d1d5db; }
+    .arr-head {
+      width:0; height:0;
+      border-left:5px solid transparent;
+      border-right:5px solid transparent;
+      border-top:7px solid #d1d5db;
+    }
+    .arr-label {
+      font-size:7.5px; color:#6b7280;
+      background:#f9fafb; padding:1px 6px;
+      border-radius:3px; margin-bottom:2px; white-space:nowrap;
+    }
+
+    /* ── Decision diamond ── */
+    .diamond-wrap {
+      display:flex; align-items:center; gap:0; width:420px; max-width:100%;
+      position:relative;
+    }
+    .diamond {
+      width:180px; height:44px; flex-shrink:0;
+      background:#fff; border:1.5px solid #374151;
+      transform:skewX(-8deg);
+      display:flex; align-items:center; justify-content:center;
+      border-radius:4px;
+    }
+    .diamond-text {
+      transform:skewX(8deg);
+      font-size:9px; font-weight:700; color:#374151; text-align:center;
+      padding:0 8px; line-height:1.3;
+    }
+
+    /* ── Branch layout ── */
+    .branch {
+      display:flex; flex-direction:row;
+      align-items:flex-start;
+      gap:10px;
+      width:100%;
+      justify-content:center;
+    }
+    .branch-col { display:flex; flex-direction:column; align-items:center; gap:0; }
+    .branch-label {
+      font-size:7.5px; font-weight:700; letter-spacing:0.5px;
+      text-transform:uppercase;
+      padding:2px 8px; border-radius:3px; margin-bottom:4px;
+    }
+    .branch-yes { background:#dcfce7; color:#15803d; }
+    .branch-no  { background:#fee2e2; color:#b91c1c; }
+
+    /* ── Parser priority row ── */
+    .parser-row {
+      display:flex; flex-direction:row; gap:4px;
+      width:420px; max-width:100%; justify-content:stretch;
+    }
+    .parser-step {
+      flex:1; border:1.5px solid #e5e7eb; border-radius:6px;
+      background:#fff; padding:5px 4px; text-align:center;
+    }
+    .parser-step-n    { font-size:6.5px; color:#9ca3af; font-weight:700; }
+    .parser-step-name { font-size:8px;   font-weight:700; color:#374151; }
+    .parser-step-src  { font-size:6.5px; color:#6b7280; line-height:1.3; }
+
+    /* ── Excerpt strip ── */
+    .excerpt-strip {
+      width:420px; max-width:100%;
+      border:1.5px solid #a855f7; border-radius:8px;
+      background:#fdf4ff; padding:7px 12px;
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .excerpt-name { font-size:9px; font-weight:700; color:#7e22ce; }
+    .excerpt-sub  { font-size:7.5px; color:#6b7280; line-height:1.4; }
+
+    /* ── Result boxes ── */
+    .result-row { display:flex; gap:8px; width:420px; max-width:100%; }
+    .result-box {
+      flex:1; border-radius:8px; border:1.5px solid;
+      padding:8px 10px; display:flex; flex-direction:column; gap:3px;
+    }
+    .result-box .rb-label { font-size:7.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+    .result-box .rb-fields { font-size:8px; color:#374151; line-height:1.55; }
+
+    .section-tag {
+      font-size:7px; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; color:#9ca3af;
+      width:420px; max-width:100%;
+      padding:7px 0 2px;
+      border-top:1px solid #e5e7eb;
+      text-align:left;
+    }
+  </style>
+</head>
+<body>
+  <figure class="vkr-figure vkr-figure-wide">
+    <div class="vkr-figure-inner vkr-figure-inner-spacious">
+      <div class="flow">
+
+        <!-- 1. Client -->
+        <div class="fb fb-client">
+          <div class="fb-name">Браузерный SPA — useMetadata(url)</div>
+          <div class="fb-sub">Хук обнаруживает URL в тексте → debounce 400 мс → инициирует запрос</div>
+        </div>
+
+        <div class="arr"><div class="arr-line"></div><div class="arr-label">GET /api/metadata?url=…</div><div class="arr-head"></div></div>
+
+        <!-- 2. API Route -->
+        <div class="fb fb-route">
+          <div class="fb-name">API Route — /api/metadata</div>
+          <div class="fb-sub">Валидация URL (try new URL()); нормализация; проверка допустимых схем (http/https)</div>
+        </div>
+
+        <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+        <!-- 3. Cache decision -->
+        <div class="section-tag">Кэш-слой — TTL 24 ч</div>
+        <div class="fb" style="background:#fff;border-color:#374151;border-style:dashed;">
+          <div class="fb-name">Проверка Map&lt;url, CacheEntry&gt; — expiresAt &gt; Date.now()?</div>
+          <div class="fb-sub">Ключ — нормализованный URL. Инвалидация при чтении (lazy expiry).</div>
+        </div>
+
+        <!-- Branch -->
+        <div style="display:flex;width:420px;margin:0;">
+          <!-- YES branch -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+            <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+            <span class="branch-label branch-yes">Попадание</span>
+            <div class="fb fb-cache" style="width:192px;">
+              <div class="fb-name">Ответ из кэша</div>
+              <div class="fb-sub">cached: true · 2–4 мс · пропуск сети</div>
+            </div>
+          </div>
+          <!-- NO branch -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+            <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+            <span class="branch-label branch-no">Промах</span>
+            <div class="fb fb-fetch" style="width:192px;">
+              <div class="fb-name">fetcher.ts</div>
+              <div class="fb-sub">HTTP GET · User-Agent · таймаут 6 с · лимит 2 МБ · redirect: follow</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow from NO branch continuing down -->
+        <div style="display:flex;width:420px;justify-content:flex-end;">
+          <div style="width:192px;display:flex;flex-direction:column;align-items:center;">
+            <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+          </div>
+        </div>
+
+        <!-- 4. External site + timeout branch -->
+        <div style="display:flex;gap:8px;width:420px;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+            <div class="fb fb-ext" style="width:192px;">
+              <div class="fb-name">Целевой сайт</div>
+              <div class="fb-sub">HTML-ответ 200 / HTTP-ошибка / таймаут AbortController</div>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+            <div class="fb fb-err" style="width:192px;border-style:dashed;">
+              <div class="fb-name" style="color:#b91c1c;">Сбой / таймаут</div>
+              <div class="fb-sub">→ graceful degradation (см. правый блок результата)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow success path -->
+        <div style="display:flex;width:420px;justify-content:flex-start;">
+          <div style="width:192px;display:flex;flex-direction:column;align-items:center;">
+            <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+          </div>
+        </div>
+
+        <!-- 5. Parser -->
+        <div class="section-tag">Парсинг HTML — приоритет источников</div>
+        <div class="parser-row">
+          <div class="parser-step">
+            <div class="parser-step-n">①</div>
+            <div class="parser-step-name">Open Graph</div>
+            <div class="parser-step-src">og:title og:description og:image og:url</div>
+          </div>
+          <div class="parser-step">
+            <div class="parser-step-n">②</div>
+            <div class="parser-step-name">JSON-LD</div>
+            <div class="parser-step-src">script[type=ld+json] headline / name</div>
+          </div>
+          <div class="parser-step">
+            <div class="parser-step-n">③</div>
+            <div class="parser-step-name">Twitter Cards</div>
+            <div class="parser-step-src">meta[name=twitter:title/desc/image]</div>
+          </div>
+          <div class="parser-step">
+            <div class="parser-step-n">④</div>
+            <div class="parser-step-name">HTML meta</div>
+            <div class="parser-step-src">title-тег; meta[name=description]</div>
+          </div>
+          <div class="parser-step">
+            <div class="parser-step-n">⑤</div>
+            <div class="parser-step-name">Fallback</div>
+            <div class="parser-step-src">H1; hostname; первый абзац</div>
+          </div>
+        </div>
+
+        <div class="arr" style="align-self:center;"><div class="arr-line"></div><div class="arr-label">параллельно всем шагам</div><div class="arr-head"></div></div>
+
+        <!-- 6. Excerpt -->
+        <div class="excerpt-strip">
+          <div class="excerpt-name">Извлечение тела страницы — excerpt + wordCount</div>
+          <div class="excerpt-sub">Удаление шума (nav / header / footer / aside / script / [aria-hidden]) → поиск article / [role=main] / main / .post-content / .entry-content → очистка пробелов → первые 600 символов + подсчёт слов</div>
+        </div>
+
+        <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+        <!-- 7. Results -->
+        <div class="section-tag">Результат — запись в кэш и ответ клиенту</div>
+        <div class="result-row">
+          <div class="result-box fb-ok">
+            <span class="rb-label" style="color:#15803d;">Успех</span>
+            <span class="rb-fields">
+              title · canonical · domain · source<br>
+              description (OG/meta) · excerpt (тело)<br>
+              wordCount · image? · fetchedAt<br>
+              cached: false → запись в Map
+            </span>
+          </div>
+          <div class="result-box fb-err">
+            <span class="rb-label" style="color:#b91c1c;">Graceful degradation</span>
+            <span class="rb-fields">
+              title = domain · canonical = url<br>
+              description / excerpt / image = null<br>
+              source = "fallback" · error = null<br>
+              кэш не записывается
+            </span>
+          </div>
+        </div>
+
+        <div class="arr"><div class="arr-line"></div><div class="arr-head"></div></div>
+
+        <!-- 8. Back to client -->
+        <div class="fb fb-client">
+          <div class="fb-name">Браузерный SPA — LinkCard / UrlSuggestion</div>
+          <div class="fb-sub">Получает MetadataResponse · status: success | error · рендерит карточку или скелетон</div>
+        </div>
+
+      </div>
+    </div>
+    <figcaption class="vkr-figcaption">
+      Рисунок 13 – Схема обработки запроса агрегации метаданных
+      <span class="vkr-figcaption-source">Источник: составлено автором на основе архитектуры разработанного MVP</span>
+    </figcaption>
+  </figure>
+</body>
+</html>

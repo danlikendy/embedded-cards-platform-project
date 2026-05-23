@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Маркдекс — презентация (13 слайдов)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #0d0d0f;
+      --text: #ffffff;
+      --muted: #bcbcbc;
+      --blue: #0f63f4;
+      --orange: #fe5000;
+      --border: #2a2a2e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(14px, 1.25vw, 17px);
+      line-height: 1.5;
+      overflow: hidden;
+    }
+
+    .deck { height: 100%; display: flex; flex-direction: column; }
+
+    .slide {
+      display: none;
+      flex: 1;
+      padding: clamp(1.25rem, 3.5vw, 2.75rem);
+      max-width: 980px;
+      margin: 0 auto;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      animation: enter 0.4s ease-out;
+    }
+
+    .slide.active { display: flex; }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide--light {
+      background: #ffffff;
+      color: #111;
+      margin: 1rem auto;
+      border-radius: 12px;
+      max-width: 920px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    }
+
+    .slide--light h1,
+    .slide--light h2,
+    .slide--light .lead { color: #111; }
+    .slide--light p,
+    .slide--light li { color: #333; }
+    .slide--light .tagline { color: var(--blue); }
+
+    h1 {
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3.8vw, 2.15rem);
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-brand {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      opacity: 0.12;
+      position: absolute;
+      right: 8%;
+      top: 18%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .slide { position: relative; }
+
+    p { margin-bottom: 0.75rem; color: var(--muted); max-width: 58ch; }
+    p.lead { color: var(--text); font-size: 1.02em; }
+
+    .accent-orange { color: var(--orange); font-weight: 600; }
+
+    ul { list-style: none; margin: 0.4rem 0 0; }
+    li {
+      padding: 0.4rem 0 0.4rem 1.2rem;
+      position: relative;
+      color: var(--muted);
+    }
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72rem;
+      width: 5px;
+      height: 5px;
+      background: var(--blue);
+      border-radius: 1px;
+    }
+
+    ol.num {
+      list-style: decimal;
+      margin: 0.5rem 0 0 1.25rem;
+      color: var(--muted);
+    }
+    ol.num li { padding-left: 0.35rem; }
+    ol.num li::before { display: none; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88em;
+      margin-top: 0.5rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border);
+    }
+    th {
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+    }
+    td { color: var(--muted); }
+
+    .tagline {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .meta { font-size: 0.9rem; color: var(--muted); margin-top: 1rem; }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 720px) {
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+    .card strong { color: var(--text); display: block; margin-bottom: 0.35rem; font-size: 0.92rem; }
+    .card p { font-size: 0.86rem; margin: 0; max-width: none; }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: #eee;
+      color: #111;
+      margin-bottom: 0.75rem;
+      border: 1px solid #ddd;
+    }
+
+    .cta-row { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .btn--dark { background: #111; color: #fff; }
+    .btn--ghost { background: #fff; color: #111; border: 1px solid #ccc; }
+
+    .footer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.55rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, transparent, var(--bg) 35%);
+    }
+
+    .progress {
+      height: 2px;
+      background: var(--border);
+      flex: 1;
+      max-width: 220px;
+      margin: 0 0.85rem;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .progress i {
+      display: block;
+      height: 100%;
+      background: var(--blue);
+      width: 0%;
+      transition: width 0.22s ease;
+    }
+
+    .closing h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+    .closing .big { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin: 0.5rem 0; }
+
+    .extra-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--orange);
+      margin-bottom: 0.65rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <section class="slide active" data-slide>
+      <p class="tagline">Проект · Делаем веб лучше</p>
+      <h1>Персональная <span class="accent-orange">веб-платформа</span><br />встроенных карточек внешних источников</h1>
+      <p class="lead"><strong>Маркдекс</strong> — заметка как текст и предсказуемые карточки ссылок с нормализованными метаданными.</p>
+      <p class="meta">Попов Александр Алексеевич · Финансовый университет</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <h2>Содержание</h2>
+      <table>
+        <thead>
+          <tr><th>№</th><th>Блок</th><th>Вопрос</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Контекст</td><td>Проблема</td></tr>
+          <tr><td>2</td><td>Концепт</td><td>В чём фишка?</td></tr>
+          <tr><td>3</td><td>Продукт</td><td>Как это работает?</td></tr>
+          <tr><td>4</td><td>Рынок</td><td>Кому это нужно?</td></tr>
+          <tr><td>5</td><td>Команда</td><td>Кто это делает?</td></tr>
+          <tr><td>6</td><td>Финал</td><td>Что дальше?</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide" data-slide>
+      <h2>Контекст</h2>
+      <p class="lead">Знания расползаются — Notion, Telegram, закладки, локальные файлы. Текст, картинки и ссылки сами по себе не дают контекста. Нужна система <strong style="color:var(--text)">компонентов</strong> в одном документе.</p>
+      <ul>
+        <li>Нужна <strong style="color:var(--text)">персональная платформа</strong>.</li>
+        <li>Где заметка — не только текст, но и <strong style="color:var(--orange)">предсказуемые карточки ссылок</strong>.</li>
+        <li>С нормализованными метаданными, в удобном редакторе.</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-slide>
+      <h2>Проблема</h2>
+      <table>
+        <thead>
+          <tr><th>Боль</th><th>Проявление</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Фрагментация</td><td>Контекст теряется между приложениями</td></tr>
+          <tr><td>Ручной ввод метаданных</td><td>Заголовок и превью копируют руками</td></tr>
+          <tr><td>Ограниченная разметка</td><td>Чистый Markdown без интерактива; HTML — тяжело писать</td></tr>
+          <tr><td>Непрозрачные ссылки</td><td>URL без визуального контекста</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide" data-slide>
+      <span class="hero-brand">Маркдекс</span>
+      <h2>Решение</h2>
+      <p class="lead">Персональная <span class="accent-orange">веб-платформа</span>. Пользователь пишет в одном окне; карточки внешних источников подтягивают заголовок, описание и изображение.</p>
+      <ol class="num">
+        <li>Объединяет <strong style="color:var(--text)">MDX</strong> (Markdown + встраиваемые компоненты).</li>
+        <li><strong style="color:var(--text)">Агрегацию метаданных</strong> по протоколам вроде Open Graph и JSON-LD.</li>
+        <li><strong style="color:var(--text)">Автодополнение</strong> при вводе ссылок и компонентов.</li>
+      </ol>
+      <p style="margin-top:1rem; font-weight:600; color:var(--text); max-width: none;">Архитектура рассчитана на клиентский рендеринг без утечки Leaflet и DOM-логики на сервер.</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <h2>Ключевые возможности продукта</h2>
+      <ol class="num">
+        <li><strong style="color:var(--text)">MDX-редактор</strong> — привычная разметка плюс компоненты там, где нужна структура или интерактив.</li>
+        <li><strong style="color:var(--text)">Встроенные карточки</strong> — ссылка превращается в читаемый блок с превью, а не «голый» URL.</li>
+        <li><strong style="color:var(--text)">Агрегаторы метаданных</strong> — единый слой нормализации полей с разных сайтов.</li>
+        <li><strong style="color:var(--text)">Автодополнение</strong> — меньше ошибок в путях, быстрее ввод повторяющихся сущностей.</li>
+        <li><strong style="color:var(--text)">Клиент-only карта и тяжёлые зависимости</strong> — стабильный SSR, предсказуемое развёртывание.</li>
+      </ol>
+    </section>
+
+    <section class="slide" data-slide>
+      <h2>Сценарий</h2>
+      <ol class="num">
+        <li>Открывает документ в редакторе.</li>
+        <li>Вставляет ссылку на статью или API — система запрашивает метаданные и показывает карточку.</li>
+        <li>Добавляет раздел с MDX-компонентом (например, выделенное предупреждение или встроенный виджет).</li>
+        <li>Сохраняет: всё остаётся в одном потоке контента, без переключения в «режим кода» без нужды.</li>
+      </ol>
+    </section>
+
+    <section class="slide" data-slide>
+      <h2>Продукт адресует</h2>
+      <p class="lead" style="font-size: clamp(1.2rem, 2.8vw, 1.65rem); color: #bcbcbc;">связность знаний и снижение трения</p>
+      <p>при работе с внешними источниками. Технический стек опирается на проверенные практики веб-платформ и явную границу клиент/сервер для стабильности и масштабирования.</p>
+    </section>
+
+    <section class="slide slide--light" data-slide>
+      <p class="tagline">Маркдекс · продукт</p>
+      <span class="pill">Теперь с поддержкой GPT-4 Turbo</span>
+      <h1 style="color:#111;">Волшебным образом улучшите свой Markdown с помощью ИИ</h1>
+      <p>Маркдекс — редактор Markdown, который использует искусственный интеллект для приведения текста в соответствие со стандартом Markdown.</p>
+      <div class="cta-row">
+        <span class="btn btn--dark">Начните писать бесплатно</span>
+        <span class="btn btn--ghost">GitHub</span>
+      </div>
+      <p style="margin-top:1rem; font-size:0.82rem; color:#666;">На живом выступлении замените блок скриншотом интерфейса из макета.</p>
+    </section>
+
+    <section class="slide closing" data-slide>
+      <p class="tagline">Проект · основное заключение</p>
+      <p class="big">МАРКДЕКС</p>
+      <h1>Спасибо за внимание</h1>
+      <p class="lead" style="margin-top:0.75rem; max-width: 52ch;">Основную линию доклада мы завершили; дальше в презентации — <strong style="color:var(--text)">дополнительные материалы</strong> (техническая зрелость, сравнение, статус). Их можно пройти кратко перед вопросами.</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="extra-label">Дополнительные материалы</p>
+      <h2>Техническая зрелость</h2>
+      <div class="grid-3">
+        <div class="card">
+          <strong>1. Разделение сервера</strong>
+          <p>(данные, прокси для метаданных, при необходимости кэш) и клиента (редактор, карта, интерактив).</p>
+        </div>
+        <div class="card">
+          <strong>2. Модульность</strong>
+          <p>Слой метаданных и слой редактора можно развивать независимо.</p>
+        </div>
+        <div class="card">
+          <strong>3. Повторное использование</strong>
+          <p>Общие контракты для DTO и единый стиль JSON-ответов для API.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="extra-label">Дополнительные материалы</p>
+      <h2>Отличие от «ещё одного блокнота»</h2>
+      <table>
+        <thead>
+          <tr><th>Обычный Markdown-редактор</th><th>Наша платформа</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ссылки как текст</td><td>Карточки с превью</td></tr>
+          <tr><td>Расширения через плагины разрозненно</td><td>MDX как единый язык документа</td></tr>
+          <tr><td>Метаданные вручную</td><td>Агрегация и нормализация</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="extra-label">Дополнительные материалы</p>
+      <h2>Статус и траектория</h2>
+      <p class="lead"><span style="color:var(--blue)">MVP:</span> рабочий контур «редактор → сохранение → отображение карточек».</p>
+      <p><span style="color:var(--orange)">Дальше:</span> расширение источников метаданных, офлайн/PWA по приоритету, углубление UX автодополнения.</p>
+      <p class="meta" style="margin-top:1.25rem;">После этого слайда — переход к вопросам (устно).</p>
+    </section>
+  </div>
+
+  <div class="footer-bar">
+    <span>Маркдекс · ← → пробел</span>
+    <div class="progress"><i id="bar"></i></div>
+    <span id="counter">1 / 13</span>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll("[data-slide]"));
+      let i = 0;
+
+      function show(n) {
+        i = Math.max(0, Math.min(n, slides.length - 1));
+        slides.forEach((s, j) => s.classList.toggle("active", j === i));
+        document.getElementById("counter").textContent = i + 1 + " / " + slides.length;
+        document.getElementById("bar").style.width = ((i + 1) / slides.length) * 100 + "%";
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+          e.preventDefault();
+          show(i + 1);
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault();
+          show(i - 1);
+        } else if (e.key === "Home") show(0);
+        else if (e.key === "End") show(slides.length - 1);
+      });
+
+      let touchX = null;
+      document.addEventListener("touchstart", function (e) {
+        touchX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      document.addEventListener("touchend", function (e) {
+        if (touchX === null) return;
+        const dx = e.changedTouches[0].screenX - touchX;
+        touchX = null;
+        if (dx < -40) show(i + 1);
+        else if (dx > 40) show(i - 1);
+      }, { passive: true });
+
+      show(0);
+    })();
+  </script>
+</body>
+</html>
